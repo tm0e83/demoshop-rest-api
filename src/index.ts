@@ -5,7 +5,7 @@ import { categoriesRouter } from './routes/categories.js';
 import { productsRouter } from './routes/products.js';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = Number(process.env.PORT) || 8080;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
