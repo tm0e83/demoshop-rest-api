@@ -5,7 +5,7 @@ import { categoriesRouter } from './routes/categories.js';
 import { productsRouter } from './routes/products.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 8080;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -25,7 +25,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/categories', categoriesRouter);
 app.use('/products', productsRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(chalk.green('✓ Server running'));
   console.log(chalk.cyan(`  → http://localhost:${PORT}/`));
 });
