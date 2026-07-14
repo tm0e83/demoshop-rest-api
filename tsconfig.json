@@ -6,7 +6,8 @@
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es2022"]
   },
   "include": ["src/**/*"],
   "exclude": ["scripts", "node_modules", "dist"]
