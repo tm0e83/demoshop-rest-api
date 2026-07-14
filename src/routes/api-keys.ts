@@ -28,7 +28,8 @@ router.post('/create', async (req: Request, res: Response) => {
     return;
   }
 
-  const hash = crypto.createHash('sha256').update(label).digest('hex');
+  const rawKey = `sk_${crypto.randomBytes(32).toString('hex')}`;
+  const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
 
   const docRef = await db.collection('apiKeys').add({
     label,
@@ -38,7 +39,7 @@ router.post('/create', async (req: Request, res: Response) => {
     hash: hash
   });
 
-  res.json(docRef);
+  res.json({ apiKey: rawKey, id: docRef.id });
 });
 
 export { router as apiKeysRouter };
