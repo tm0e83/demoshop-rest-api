@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { verifyAdmin } from '../middleware/verify-admin.js';
+import crypto from 'crypto';
 import { db } from '../firebase.js';
 
 const router = express.Router();
@@ -20,18 +21,21 @@ router.get('/list', async (req: Request, res: Response) => {
 });
 
 router.post('/create', async (req: Request, res: Response) => {
-  const label = req.params.label;
+  const label = req.body.label;
 
   if (!label) {
     res.status(400).json({ message: 'Label is required' });
     return;
   }
 
+  const hash = crypto.createHash('sha256').update(label).digest('hex');
+
   const docRef = await db.collection('apiKeys').add({
     label,
     createdAt: new Date(),
     lastUsedAt: null,
-    revoked: false
+    revoked: false,
+    hash: hash
   });
 
   res.json(docRef);
