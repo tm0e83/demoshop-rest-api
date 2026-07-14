@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { verifyAdmin } from '../middleware/admin.js';
+import { verifyAdmin } from '../middleware/verify-admin.js';
 import { db } from '../firebase.js';
 
 const router = express.Router();
