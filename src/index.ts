@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import cors from 'cors';
 import express, { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 import { categoriesRouter } from './routes/categories.js';
@@ -10,6 +11,11 @@ import { errorHandler } from './middleware/error-request-handler.js';
 const app = express();
 const PORT = Number(process.env.PORT) || 8080;
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://demoshop-rest-api.fly.dev',
+]
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -17,6 +23,11 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(limiter);

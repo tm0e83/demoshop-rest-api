@@ -19,4 +19,22 @@ router.get('/list', async (req: Request, res: Response) => {
   res.json(keys);
 });
 
+router.post('/create', async (req: Request, res: Response) => {
+  const label = req.params.label;
+
+  if (!label) {
+    res.status(400).json({ message: 'Label is required' });
+    return;
+  }
+
+  const docRef = await db.collection('apiKeys').add({
+    label,
+    createdAt: new Date(),
+    lastUsedAt: null,
+    revoked: false
+  });
+
+  res.json(docRef);
+});
+
 export { router as apiKeysRouter };
