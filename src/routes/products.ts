@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
   const snapshot = await db.collection('products').get();
-  const products = snapshot.docs.map((doc) => doc.data());
+  const products: Product[] = snapshot.docs.map((doc) => doc.data() as Product);
   res.json(products);
 });
 
