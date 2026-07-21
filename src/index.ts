@@ -15,6 +15,7 @@ const PORT = Number(process.env.PORT) || 8080;
 const allowedOrigins = [
   'http://localhost:3000',
   'http://demoshop-rest-api.fly.dev',
+  'https://demoshop-flame.vercel.app',
 ]
 
 const limiter = rateLimit({
