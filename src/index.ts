@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import chalk from 'chalk';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
